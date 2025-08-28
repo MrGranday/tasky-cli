@@ -1,0 +1,92 @@
+Tasky - A Simple Rust CLI to Manage To-Do Lists
+==============================================
+
+Repository: https://github.com/MrGranday/tasky
+Author: MrGranday
+License: MIT License
+Last Updated: August 28, 2025
+
+About
+-----
+Tasky is a lightweight command-line interface (CLI) tool written in Rust for managing to-do lists. It allows users to add, list, and remove tasks with a simple, colorful interface. Tasks are stored in a JSON file, making it easy to extend. Designed with beginners in mind, Tasky is perfect for learning Rust, contributing to open-source projects, and managing daily tasks in Windows (CMD/PowerShell), Linux, or macOS.
+
+Features
+--------
+- Add tasks: `tasky add "Buy milk"`
+- List tasks: `tasky list` (with colorful output)
+- Remove tasks: `tasky remove 0` (by index)
+- Stores tasks in `tasks.json` for persistence
+- Colorized terminal output (green for adds, blue for tasks, red for removes)
+- Cross-platform: Works in Windows CMD/PowerShell, Linux, and macOS
+- Planned features: Mark tasks as done, add due dates, priority tags, JSON output for PowerShell scripting
+
+Installation
+------------
+1. Install Rust:
+   - Visit https://www.rust-lang.org/ and follow the instructions.
+   - Or run: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+   - On Windows, this downloads `rustup-init.exe`. Choose the default `stable` toolchain.
+   - Verify: `rustc --version` (should show ~1.70.0 or later).
+2. Clone the repository:
+   ```
+   git clone https://github.com/MrGranday/tasky.git
+   cd tasky
+   ```
+3. Build and run:
+   ```
+   cargo build
+   cargo run -- add "Test task"
+   cargo run -- list
+   cargo run -- remove 0
+   ```
+4. For Windows CMD colors:
+   - Enable ANSI: `reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1`
+5. Optional: Install globally:
+   ```
+   cargo install --path .
+   ```
+   - This places `tasky` in `~/.cargo/bin` for use anywhere.
+
+Usage
+-----
+- Add a task: `tasky add "Buy milk"`
+- List all tasks: `tasky list`
+- Remove a task: `tasky remove 0`
+- (Planned) Mark as done: `tasky done 0`
+- (Planned) JSON output: `tasky list --json` (for PowerShell: `tasky list --json | ConvertFrom-Json`)
+
+Contributing
+------------
+Tasky is designed to be beginner-friendly, with a small codebase (~100-200 lines) and clear tasks. We aim for 90%+ beginner contributors, like Rust’s eza project. To get started:
+- Check [CONTRIBUTING.md](CONTRIBUTING.md) for detailed steps.
+- Look for `good first issue` labels on GitHub: https://github.com/MrGranday/tasky/issues
+- Example tasks:
+  - Add a `--done` command to mark tasks as complete
+  - Support due dates (e.g., `tasky add "Buy milk" --due "2025-08-30"`)
+  - Add JSON output for PowerShell
+  - Fix typos in documentation
+- No Rust or open-source experience? No problem! We’ll guide you through your first pull request.
+
+Development
+-----------
+- Dependencies: `clap` (CLI args), `serde`/`serde_json` (JSON storage), `colored` (terminal colors)
+- Code style: Run `cargo fmt` and `cargo clippy`
+- Test: Run `cargo test` (add tests for new features)
+- Editor: VS Code with `rust-analyzer` is recommended for beginners
+
+Community
+---------
+- Ask questions on GitHub issues: https://github.com/MrGranday/tasky/issues
+- Join the Rust community:
+  - Rust Discord: https://discord.gg/rust-lang (beginner channels)
+  - r/rust on Reddit: https://www.reddit.com/r/rust/
+  - Share on X: Use #rustlang or #tasky
+- Contact: Open an issue or reach out to MrGranday on GitHub
+
+License
+-------
+Tasky is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+
+Footer
+------
+© 2025 GitHub, Inc.
