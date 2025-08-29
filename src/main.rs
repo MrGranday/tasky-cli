@@ -20,12 +20,16 @@ struct Args {
 enum Commands {
     /// Add a new task
     Add { text: String },
+
     /// List all tasks
     List,
+
     /// Remove a task by index
     Remove { index: usize },
-}
 
+    /// mark as done
+    Done { index: usize },
+}
 fn load_tasks() -> Vec<Task> {
     fs::read_to_string("tasks.json")
         .map(|s| serde_json::from_str(&s).unwrap_or(vec![]))
@@ -64,6 +68,15 @@ fn main() {
                 let task = tasks.remove(index);
                 save_tasks(&tasks);
                 println!("Removed: {}", task.text.red());
+            } else {
+                println!("Error: Invalid index {}", index);
+            }
+        }
+        Commands::Done { index } => {
+            if index < tasks.len() {
+                tasks[index].done = true;
+                save_tasks(&tasks);
+                println!("Marked as done: {}", tasks[index].text.green());
             } else {
                 println!("Error: Invalid index {}", index);
             }
