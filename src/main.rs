@@ -11,7 +11,11 @@ pub struct Task {
 }
 
 #[derive(Parser)]
-#[command(name = "tasky", about = "A simple to-do list CLI")]
+#[command(
+    name = "tasky-cli",
+    about = "A simple to-do list CLI",
+    version = env!("CARGO_PKG_VERSION")
+)]
 struct Args {
     #[command(subcommand)]
     command: Commands,
