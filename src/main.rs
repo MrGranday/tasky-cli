@@ -1,8 +1,7 @@
-use tasky_cli::{Task, load_tasks, save_tasks};
-
 use clap::{Parser, Subcommand};
 use colored::control;
 use colored::*;
+use tasky_cli::{Task, load_tasks, save_tasks};
 
 #[derive(Parser)]
 #[command(
