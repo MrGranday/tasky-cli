@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use std::fs;
-    use tasky::{Task, load_tasks, save_tasks};
+    use tasky_cli::{Task, load_tasks, save_tasks};
 
     #[test]
     fn test_add_and_list() {
