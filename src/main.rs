@@ -1,4 +1,5 @@
 use clap::{Parser, Subcommand};
+use colored::control;
 use colored::*;
 use serde::{Deserialize, Serialize};
 use std::fs;
@@ -30,6 +31,7 @@ enum Commands {
     /// mark as done
     Done { index: usize },
 }
+
 fn load_tasks() -> Vec<Task> {
     fs::read_to_string("tasks.json")
         .map(|s| serde_json::from_str(&s).unwrap_or(vec![]))
@@ -41,6 +43,9 @@ pub fn save_tasks(tasks: &[Task]) {
 }
 
 fn main() {
+    // Enable ANSI color support on Windows
+    control::set_override(true);
+
     let args = Args::parse();
     let mut tasks = load_tasks();
 
