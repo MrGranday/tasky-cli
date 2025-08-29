@@ -3,7 +3,7 @@ name: Publish Crate
 on:
   push:
     tags:
-      - "v*.*.*" # only run when you push a version tag like v0.3.0
+      - "v*.*.*" # triggers only when you push a version tag like v0.3.0
 
 jobs:
   publish:
@@ -11,5 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@stable
+      - name: Build and test
+        run: |
+          cargo build --verbose
+          cargo test --verbose
       - name: Publish to crates.io
         run: cargo publish --token ${{ secrets.CARGO_REGISTRY_TOKEN }}
