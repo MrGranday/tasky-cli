@@ -1,48 +1,142 @@
-Tasky
+# Tasky CLI
+
 A simple Rust CLI to manage to-do lists.
-About
-Tasky is a lightweight command-line tool written in Rust for managing to-do lists. It supports adding, listing, and removing tasks with colorful output and JSON storage. Designed for beginners, Tasky is ideal for learning Rust, contributing to open source, and organizing tasks in Windows (CMD/PowerShell), Linux, or macOS.
-See tasky.txt for a detailed project overview.
-Features
 
-Add tasks: tasky add "Buy milk"
-List tasks: tasky list (colorized output)
-Remove tasks: tasky remove 0
-Stores tasks in tasks.json
-Cross-platform: Works in CMD, PowerShell, Linux, macOS
-Planned: Mark tasks as done, due dates, priority tags, JSON output
+---
 
-Installation
+## About
 
-Install Rust: rust-lang.orgcurl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+**Tasky CLI** is a lightweight command-line tool written in Rust for managing to-do lists.
+It supports adding, listing, removing, and marking tasks as done, with colorful output and JSON storage.
 
-On Windows, follow rustup-init.exe prompts.
-Clone the repo:git clone https://github.com/MrGranday/tasky.git
+Designed for beginners, Tasky CLI is ideal for:
+
+- Learning Rust
+- Contributing to open source
+- Organizing tasks on Windows (CMD/PowerShell), Linux, or macOS
+
+See `tasky.txt` for a detailed project overview.
+
+---
+
+## Features
+
+- **Add tasks:**
+
+  ```bash
+  tasky-cli add "Buy milk"
+  ```
+
+- **List tasks:** (colorized output)
+
+  ```bash
+  tasky-cli list
+  ```
+
+- **Remove tasks:**
+
+  ```bash
+  tasky-cli remove 0
+  ```
+
+- **Mark tasks as done:**
+
+  ```bash
+  tasky-cli done 0
+  ```
+
+- **JSON storage:** Tasks stored in `tasks.json`
+- **Cross-platform:** Works on CMD, PowerShell, Linux, macOS
+
+**Planned features:**
+
+- Due dates
+- Priority tags
+- JSON output enhancements
+
+---
+
+## Installation
+
+### 1. Install Rust
+
+Follow the instructions at [rust-lang.org](https://www.rust-lang.org/tools/install) or run:
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+- On **Windows**, follow the `rustup-init.exe` prompts.
+
+### 2. Install Tasky CLI via Cargo
+
+```bash
+cargo install tasky-cli
+```
+
+### 3. Or build from source
+
+```bash
+git clone https://github.com/MrGranday/tasky.git
 cd tasky
-
-Build and test:cargo build
+cargo build
 cargo run -- add "Test task"
 cargo run -- list
+```
 
-For Windows CMD colors:reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1
+### 4. Windows CMD color support
 
-Contributing
-Tasky welcomes beginners! We aim for 90%+ beginner contributors. To get started:
+```bash
+reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1
+```
 
-Read CONTRIBUTING.md for step-by-step guidance.
-Check issues for good first issue tasks, like:
-Adding a --done command
-Supporting due dates
-Improving docs
+---
 
-No experience? We’ll help you with your first pull request!
+## Usage
 
-License
-Tasky is licensed under the MIT License.
-Community
+```bash
+# Add a new task
+tasky-cli add "Finish homework"
 
-Ask questions: GitHub Issues
-Join: Rust Discord or r/rust
-Share: Use #rustlang or #tasky on X
+# List all tasks
+tasky-cli list
+
+# Mark a task as done
+tasky-cli done 0
+
+# Remove a task
+tasky-cli remove 0
+```
+
+---
+
+## Contributing
+
+Tasky CLI welcomes beginners! We aim for 90%+ beginner contributors.
+
+**Steps to get started:**
+
+1. Read [`CONTRIBUTING.md`](CONTRIBUTING.md) for guidance.
+2. Check issues for **good first issue tasks**, such as:
+
+   - Adding a `--done` command
+   - Supporting due dates
+   - Improving documentation
+
+3. Open a pull request — no experience needed! We’ll guide you.
+
+---
+
+## License
+
+Tasky CLI is licensed under the **MIT License**.
+
+---
+
+## Community
+
+- **Questions:** [GitHub Issues](https://github.com/MrGranday/tasky/issues)
+- **Join discussions:** Rust Discord, r/rust
+- **Share your progress:** Use `#rustlang` or `#tasky` on X (Twitter)
 
 Happy task managing! 🦀
