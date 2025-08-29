@@ -1,14 +1,8 @@
+use tasky_cli::{Task, load_tasks, save_tasks};
+
 use clap::{Parser, Subcommand};
 use colored::control;
 use colored::*;
-use serde::{Deserialize, Serialize};
-use std::fs;
-
-#[derive(Serialize, Deserialize)]
-pub struct Task {
-    text: String,
-    done: bool,
-}
 
 #[derive(Parser)]
 #[command(
@@ -23,31 +17,13 @@ struct Args {
 
 #[derive(Subcommand)]
 enum Commands {
-    /// Add a new task
     Add { text: String },
-
-    /// List all tasks
     List,
-
-    /// Remove a task by index
     Remove { index: usize },
-
-    /// mark as done
     Done { index: usize },
 }
 
-fn load_tasks() -> Vec<Task> {
-    fs::read_to_string("tasks.json")
-        .map(|s| serde_json::from_str(&s).unwrap_or(vec![]))
-        .unwrap_or(vec![])
-}
-
-pub fn save_tasks(tasks: &[Task]) {
-    fs::write("tasks.json", serde_json::to_string_pretty(tasks).unwrap()).unwrap();
-}
-
 fn main() {
-    // Enable ANSI color support on Windows
     control::set_override(true);
 
     let args = Args::parse();
