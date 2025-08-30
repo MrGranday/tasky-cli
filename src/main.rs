@@ -1,8 +1,7 @@
 use clap::{Parser, Subcommand};
 use colored::control;
-use tasky_cli::storage::load_tasks; // Only import load_tasks
-
-mod commands; // Keep the commands module
+use tasky_cli::commands::{add_task, done_task, list_tasks, remove_task};
+use tasky_cli::storage::load_tasks; // Import from tasky_cli
 
 #[derive(Parser)]
 #[command(
@@ -31,16 +30,16 @@ fn main() {
 
     match args.command {
         Commands::Add { text } => {
-            commands::add_task(&mut tasks, text);
+            add_task(&mut tasks, text);
         }
         Commands::List => {
-            commands::list_tasks(&tasks);
+            list_tasks(&tasks);
         }
         Commands::Remove { index } => {
-            commands::remove_task(&mut tasks, index);
+            remove_task(&mut tasks, index);
         }
         Commands::Done { index } => {
-            commands::done_task(&mut tasks, index);
+            done_task(&mut tasks, index);
         }
     }
 }

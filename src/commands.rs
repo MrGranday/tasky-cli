@@ -1,6 +1,6 @@
+use crate::storage::save_tasks;
+use crate::task::Task;
 use colored::*;
-use tasky_cli::storage::save_tasks;
-use tasky_cli::task::Task;
 
 pub fn add_task(tasks: &mut Vec<Task>, text: String) {
     let new_task = Task::new(text.clone());
