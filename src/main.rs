@@ -1,6 +1,6 @@
 use clap::{Parser, Subcommand};
 use colored::control;
-use tasky_cli::commands::{add_task, done_task, list_tasks, remove_task};
+use tasky_cli::commands::{add_task, done_task, edit_task, list_tasks, remove_task};
 use tasky_cli::storage::load_tasks; // Import from tasky_cli
 
 #[derive(Parser)]
@@ -18,6 +18,7 @@ struct Args {
 enum Commands {
     Add { text: String },
     List,
+    Edit { index: usize, new_text: String },
     Remove { index: usize },
     Done { index: usize },
 }
@@ -40,6 +41,9 @@ fn main() {
         }
         Commands::Done { index } => {
             done_task(&mut tasks, index);
+        }
+        Commands::Edit { index, new_text } => {
+            edit_task(&mut tasks, index, new_text);
         }
     }
 }
