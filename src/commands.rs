@@ -39,10 +39,10 @@ pub fn done_task(tasks: &mut Vec<Task>, index: usize) {
         println!("Error: Invalid index {}", index);
     }
 }
-pub fn edit_task(tasks: &mut Vec<Task>, index: usize, new_text: String) {
+pub fn edit_task(tasks: &mut Vec<Task>, index: usize, new_text: String) -> Result<(), String>  {
     if index < tasks.len() {
         let old_text = tasks[index].text.clone();
-        tasks[index].text = new_text.clone();
+        tasks[index].text = new_text.clone().trim().to_string();
         save_tasks(tasks);
         println!(
             "Edited task {}: '{}' -> '{}'",
@@ -50,7 +50,9 @@ pub fn edit_task(tasks: &mut Vec<Task>, index: usize, new_text: String) {
             old_text.yellow(),
             new_text.green()
         );
+        return Ok(());
     } else {
         println!("Error: Invalid index {}", index);
+        return Err( format!("Invalid index, not tasks with index {}", index));
     }
 }
