@@ -16,10 +16,12 @@ mod tests {
             Task {
                 text: "Task 1".to_string(),
                 done: false,
+                       date_string:"2025-08-03".to_string(),
             },
             Task {
                 text: "Task 2".to_string(),
                 done: true,
+                       date_string:"2025-08-03".to_string(),
             },
         ];
         save_tasks(&tasks);

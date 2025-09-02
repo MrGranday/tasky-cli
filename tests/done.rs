@@ -14,6 +14,7 @@ mod tests {
         // Setup: Save one task
         let mut tasks = vec![Task {
             text: "Test task".to_string(),
+            date_string:"2025-08-03".to_string(),
             done: false,
         }];
         save_tasks(&tasks);
