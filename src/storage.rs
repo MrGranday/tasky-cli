@@ -12,6 +12,7 @@ pub fn load_tasks() -> Vec<Task> {
 }
 
 pub fn save_tasks(tasks: &[Task]) {
+    println!("{}", tasks.len());
     let json = serde_json::to_string_pretty(tasks).expect("Failed to serialize tasks");
     fs::write(TASKS_FILE, json).expect("Failed to write tasks file");
 }

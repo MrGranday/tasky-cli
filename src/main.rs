@@ -16,7 +16,7 @@ struct Args {
 
 #[derive(Subcommand)]
 enum Commands {
-    Add { text: String },
+    Add { text: String, date_string: String },
     List,
     Edit { index: usize, new_text: String },
     Remove { index: usize },
@@ -30,8 +30,8 @@ fn main() {
     let mut tasks = load_tasks();
 
     match args.command {
-        Commands::Add { text } => {
-            add_task(&mut tasks, text);
+        Commands::Add { text, date_string } => {
+            add_task(&mut tasks, text, date_string);
         }
         Commands::List => {
             list_tasks(&tasks);
