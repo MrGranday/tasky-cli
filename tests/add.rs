@@ -8,7 +8,7 @@ mod tests {
         let _ = fs::remove_file("tasks.json");
 
         let mut tasks = vec![];
-        add_task(&mut tasks, "Test task".to_string());
+        add_task(&mut tasks, "Test task".to_string(), "2025-08-03".to_string());
 
         let loaded = load_tasks();
         assert_eq!(loaded.len(), 1, "Expected exactly one task");
