@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 pub struct Task {
     pub text: String,
     pub done: bool,
-    pub date_string: Option<String>, // <-- optional
+    pub date_string: Option<String>,
 }
 
 impl Task {

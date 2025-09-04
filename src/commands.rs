@@ -1,14 +1,14 @@
-use crate::storage::save_tasks;
+use crate::storage::save_tasks_to_file;
 use crate::task::Task;
 use chrono::DateTime;
 use chrono::offset::Utc;
 use colored::*;
 
-pub fn add_task(tasks: &mut Vec<Task>, text: String, date_string: Option<String>) {
+pub fn add_task(tasks: &mut Vec<Task>, text: String, date_string: Option<String>, file: &str) {
     let date = date_string.unwrap_or_else(|| "".to_string()); // empty if none provided
     let new_task = Task::new(text.clone(), date.clone());
     tasks.push(new_task.clone());
-    save_tasks(tasks);
+    save_tasks_to_file(tasks, file);
 
     if date.is_empty() {
         println!("Added: {}", text.green());
@@ -44,30 +44,31 @@ pub fn list_tasks(tasks: &[Task]) {
     }
 }
 
-pub fn remove_task(tasks: &mut Vec<Task>, index: usize) {
+pub fn remove_task(tasks: &mut Vec<Task>, index: usize, file: &str) {
     if index < tasks.len() {
         let task = tasks.remove(index);
-        save_tasks(tasks);
+        save_tasks_to_file(tasks, file);
         println!("Removed: {}", task.text.red());
     } else {
         println!("Error: Invalid index {}", index);
     }
 }
 
-pub fn done_task(tasks: &mut Vec<Task>, index: usize) {
+pub fn done_task(tasks: &mut Vec<Task>, index: usize, file: &str) {
     if index < tasks.len() {
         tasks[index].mark_done();
-        save_tasks(tasks);
+        save_tasks_to_file(tasks, file);
         println!("Marked as done: {}", tasks[index].text.green());
     } else {
         println!("Error: Invalid index {}", index);
     }
 }
-pub fn edit_task(tasks: &mut Vec<Task>, index: usize, new_text: String) {
+
+pub fn edit_task(tasks: &mut Vec<Task>, index: usize, new_text: String, file: &str) {
     if index < tasks.len() {
         let old_text = tasks[index].text.clone();
         tasks[index].text = new_text.clone();
-        save_tasks(tasks);
+        save_tasks_to_file(tasks, file);
         println!(
             "Edited task {}: '{}' -> '{}'",
             index,

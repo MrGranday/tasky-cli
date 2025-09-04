@@ -1,17 +1,17 @@
 #[cfg(test)]
 mod tests {
+    use std::fs;
 
-    use tasky_cli::storage;
     use tasky_cli::{
         Task,
         commands::list_tasks,
-        storage::{load_tasks, save_tasks},
+        storage::{load_tasks_from_file, save_tasks_to_file},
     };
 
     #[test]
     fn test_list_tasks() {
-        storage::set_tasks_file("test_list.json");
-        let _ = std::fs::remove_file("test_list.json");
+        let file = "test_list.json";
+        let _ = fs::remove_file(file); // Clean up before test
 
         // Setup: Save some tasks
         let tasks = vec![
@@ -31,16 +31,18 @@ mod tests {
                 date_string: None,
             },
         ];
-        save_tasks(&tasks);
+        save_tasks_to_file(&tasks, file);
 
         // List doesn't modify tasks
-        let before = load_tasks();
+        let before = load_tasks_from_file(file);
         list_tasks(&before);
-        let after = load_tasks();
+        let after = load_tasks_from_file(file);
 
         assert_eq!(before.len(), after.len(), "List should not modify tasks");
         assert_eq!(before[0].text, after[0].text, "Task 1 text mismatch");
         assert_eq!(before[1].text, after[1].text, "Task 2 text mismatch");
         assert_eq!(before[2].text, after[2].text, "Task 3 text mismatch");
+
+        let _ = fs::remove_file(file); // Clean up after test
     }
 }

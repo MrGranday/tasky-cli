@@ -1,7 +1,7 @@
 use clap::{Parser, Subcommand};
 use colored::control;
 use tasky_cli::commands::{add_task, done_task, edit_task, list_tasks, remove_task};
-use tasky_cli::storage::load_tasks; // Import from tasky_cli
+use tasky_cli::storage::{load_tasks, tasks_file};
 
 #[derive(Parser)]
 #[command(
@@ -16,21 +16,23 @@ struct Args {
 
 #[derive(Subcommand)]
 enum Commands {
+    ///add a task
     Add {
         text: String,
         date_string: Option<String>,
     },
+
+    ///list tasks
     List,
-    Edit {
-        index: usize,
-        new_text: String,
-    },
-    Remove {
-        index: usize,
-    },
-    Done {
-        index: usize,
-    },
+
+    ///edit tasks
+    Edit { index: usize, new_text: String },
+
+    ///remove task
+    Remove { index: usize },
+
+    /// mark task as done
+    Done { index: usize },
 }
 
 fn main() {
@@ -38,22 +40,23 @@ fn main() {
 
     let args = Args::parse();
     let mut tasks = load_tasks();
+    let file = tasks_file(); // Get default file path
 
     match args.command {
         Commands::Add { text, date_string } => {
-            add_task(&mut tasks, text, date_string);
+            add_task(&mut tasks, text, date_string, &file);
         }
         Commands::List => {
             list_tasks(&tasks);
         }
         Commands::Remove { index } => {
-            remove_task(&mut tasks, index);
+            remove_task(&mut tasks, index, &file);
         }
         Commands::Done { index } => {
-            done_task(&mut tasks, index);
+            done_task(&mut tasks, index, &file);
         }
         Commands::Edit { index, new_text } => {
-            edit_task(&mut tasks, index, new_text);
+            edit_task(&mut tasks, index, new_text, &file);
         }
     }
 }

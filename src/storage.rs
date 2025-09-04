@@ -14,7 +14,7 @@ pub fn set_tasks_file(path: &str) {
 }
 
 /// Get current tasks file, defaults to "tasks.json"
-fn tasks_file() -> String {
+pub fn tasks_file() -> String {
     TASKS_FILE
         .get()
         .cloned()
@@ -22,12 +22,20 @@ fn tasks_file() -> String {
 }
 
 pub fn load_tasks() -> Vec<Task> {
-    fs::read_to_string(tasks_file())
+    load_tasks_from_file(&tasks_file())
+}
+
+pub fn load_tasks_from_file(file: &str) -> Vec<Task> {
+    fs::read_to_string(file)
         .map(|s| serde_json::from_str(&s).unwrap_or(vec![]))
         .unwrap_or(vec![])
 }
 
 pub fn save_tasks(tasks: &[Task]) {
+    save_tasks_to_file(tasks, &tasks_file())
+}
+
+pub fn save_tasks_to_file(tasks: &[Task], file: &str) {
     let json = serde_json::to_string_pretty(tasks).expect("Failed to serialize tasks");
-    fs::write(tasks_file(), json).expect("Failed to write tasks file");
+    fs::write(file, json).expect("Failed to write tasks file");
 }
