@@ -16,11 +16,21 @@ struct Args {
 
 #[derive(Subcommand)]
 enum Commands {
-    Add { text: String, date_string: String },
+    Add {
+        text: String,
+        date_string: Option<String>,
+    },
     List,
-    Edit { index: usize, new_text: String },
-    Remove { index: usize },
-    Done { index: usize },
+    Edit {
+        index: usize,
+        new_text: String,
+    },
+    Remove {
+        index: usize,
+    },
+    Done {
+        index: usize,
+    },
 }
 
 fn main() {

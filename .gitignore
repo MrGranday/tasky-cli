@@ -3,6 +3,11 @@
 
 # Runtime files
 tasks.json
+test_add_with_date.json
+test_done.json
+test_edit_success.json
+test_list.json
+test_remove.json
 
 # Temporary files
 *.rs.bk

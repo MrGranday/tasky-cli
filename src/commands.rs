@@ -4,12 +4,20 @@ use chrono::DateTime;
 use chrono::offset::Utc;
 use colored::*;
 
-pub fn add_task(tasks: &mut Vec<Task>, text: String, date_string: String) {
-    let new_task = Task::new(text.clone(), date_string.clone());
-    println!("Adding task: {}", new_task.date_string);
+pub fn add_task(tasks: &mut Vec<Task>, text: String, date_string: Option<String>) {
+    let date = date_string.unwrap_or_else(|| "".to_string()); // empty if none provided
+    let new_task = Task::new(text.clone(), date.clone());
     tasks.push(new_task.clone());
     save_tasks(tasks);
-    println!("Added: {} --due {}", text.green(), date_string.blue());
+
+    if date.is_empty() {
+        println!("Added: {}", text.green());
+        println!("Tip: You can also add a due date later using:");
+        println!("   tasky-cli edit <index> \"<new_text>\"  OR");
+        println!("   tasky-cli add \"task\" \"YYYY-MM-DD\"");
+    } else {
+        println!("Added: {} --due {}", text.green(), date.blue());
+    }
 }
 
 pub fn list_tasks(tasks: &[Task]) {
@@ -21,14 +29,17 @@ pub fn list_tasks(tasks: &[Task]) {
 
         for (i, task) in tasks.iter().enumerate() {
             let status = if task.done { "[X]" } else { "[ ]" };
-            let (task_text, date_text) = if current_date > task.date_string {
-                // Overdue
-                (task.text.blue(), task.date_string.red())
+
+            if let Some(date) = &task.date_string {
+                let (task_text, date_text) = if current_date > *date {
+                    (task.text.blue(), date.red())
+                } else {
+                    (task.text.blue(), date.yellow())
+                };
+                println!("{}: {} {} due {}", i, status, task_text, date_text);
             } else {
-                // Due today or in the future
-                (task.text.blue(), task.date_string.yellow())
-            };
-            println!("{}: {} {} due {}", i, status, task_text, date_text);
+                println!("{}: {} {}", i, status, task.text.blue());
+            }
         }
     }
 }

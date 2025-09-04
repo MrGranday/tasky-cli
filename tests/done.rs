@@ -1,20 +1,21 @@
 #[cfg(test)]
 mod tests {
-    use std::fs;
+
+    use tasky_cli::storage;
     use tasky_cli::{
         Task,
         commands::done_task,
         storage::{load_tasks, save_tasks},
     };
-
     #[test]
     fn test_done_task() {
-        let _ = fs::remove_file("tasks.json");
+        storage::set_tasks_file("test_done.json");
+        let _ = std::fs::remove_file("test_done.json");
 
         // Setup: Save one task
         let mut tasks = vec![Task {
             text: "Test task".to_string(),
-            date_string:"2025-08-03".to_string(),
+            date_string: Some("2025-08-03".to_string()),
             done: false,
         }];
         save_tasks(&tasks);
