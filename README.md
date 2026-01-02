@@ -17,6 +17,31 @@ Designed for beginners, Tasky CLI is ideal for:
 
 See `tasky.txt` for a detailed project overview.
 
+## Why Tasky CLI?
+
+In a world of bloated productivity apps, **Tasky CLI** stays out of your way.
+
+- **Speed:** Add and check tasks in seconds without leaving your terminal.
+- **Context Preservation:** If you're already coding, don't break your flow by switching to a web browser or GUI app.
+- **Privacy & Portability:** Your tasks are stored in a simple `tasks.json` file on your machine. No cloud, no tracking.
+- **Visual Clarity:** Uses high-contrast colors to help you distinguish between pending, completed, and overdue tasks at a glance.
+
+## When to use it?
+
+- **Daily Standups:** Quickly list what you finished yesterday and what's on for today.
+- **Feature Checklists:** Track small sub-tasks during a complex refactor.
+- **Learning Rust:** A perfect project to read and understand how Rust handles CLI arguments and file I/O.
+- **Quick Reminders:** "Pay bills", "Commit changes", or "Buy coffee" — captured in 5 seconds.
+
+## For the Non-CLI Developer
+
+You don't need to be a "terminal wizard" to use Tasky. If you usually avoid the command line, Tasky is the perfect "gateway tool":
+
+- **Human Readable:** Commands are simple English (`add`, `list`, `done`).
+- **Zero Configuration:** Install it, and it just works. No config files to mess with initially.
+- **Bridge the Gap:** It helps you get comfortable with the terminal in a low-stakes, highly productive way.
+- **Scriptable:** Once you're ready, you can easily use it in your own automation scripts or CI/CD pipelines.
+
 ---
 
 ## Features
@@ -25,12 +50,20 @@ See `tasky.txt` for a detailed project overview.
 
   ```bash
   tasky-cli add "Buy milk"
+  # With due date (YYYY-MM-DD)
+  tasky-cli add "Submit report" "2026-01-15"
   ```
 
-- **List tasks:** (colorized output)
+- **List tasks:** (colorized output, overdue tasks in red)
 
   ```bash
   tasky-cli list
+  ```
+
+- **Edit tasks:**
+
+  ```bash
+  tasky-cli edit 0 "Buy oat milk"
   ```
 
 - **Remove tasks:**
@@ -50,7 +83,6 @@ See `tasky.txt` for a detailed project overview.
 
 **Planned features:**
 
-- Due dates
 - Priority tags
 - JSON output enhancements
 
@@ -98,8 +130,14 @@ reg add HKCU\Console /v VirtualTerminalLevel /t REG_DWORD /d 1
 # Add a new task
 tasky-cli add "Finish homework"
 
+# Add a task with a due date
+tasky-cli add "Pay bills" "2026-02-01"
+
 # List all tasks
 tasky-cli list
+
+# Edit a task
+tasky-cli edit 0 "Finish math homework"
 
 # Mark a task as done
 tasky-cli done 0

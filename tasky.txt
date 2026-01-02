@@ -4,7 +4,7 @@ Tasky - A Simple Rust CLI to Manage To-Do Lists
 Repository: https://github.com/MrGranday/tasky
 Author: MrGranday
 License: MIT License
-Last Updated: August 28, 2025
+Last Updated: January 2, 2026
 
 About
 -----
@@ -13,12 +13,15 @@ Tasky is a lightweight command-line interface (CLI) tool written in Rust for man
 Features
 --------
 - Add tasks: `tasky add "Buy milk"`
-- List tasks: `tasky list` (with colorful output)
+- Add tasks with due dates: `tasky add "Buy milk" "2026-01-15"`
+- List tasks: `tasky list` (with colorful output, overdue tasks in red)
+- Edit tasks: `tasky edit 0 "Buy oat milk"`
 - Remove tasks: `tasky remove 0` (by index)
+- Mark tasks as done: `tasky done 0`
 - Stores tasks in `tasks.json` for persistence
-- Colorized terminal output (green for adds, blue for tasks, red for removes)
+- Colorized terminal output
 - Cross-platform: Works in Windows CMD/PowerShell, Linux, and macOS
-- Planned features: Mark tasks as done, add due dates, priority tags, JSON output for PowerShell scripting
+- Planned features: Priority tags, JSON output for PowerShell scripting
 
 Installation
 ------------
@@ -50,9 +53,11 @@ Installation
 Usage
 -----
 - Add a task: `tasky add "Buy milk"`
+- Add with due date: `tasky add "Buy milk" "2026-01-15"`
 - List all tasks: `tasky list`
+- Edit a task: `tasky edit 0 "New text"`
+- Mark as done: `tasky done 0`
 - Remove a task: `tasky remove 0`
-- (Planned) Mark as done: `tasky done 0`
 - (Planned) JSON output: `tasky list --json` (for PowerShell: `tasky list --json | ConvertFrom-Json`)
 
 Contributing
@@ -61,8 +66,8 @@ Tasky is designed to be beginner-friendly, with a small codebase (~100-200 lines
 - Check [CONTRIBUTING.md](CONTRIBUTING.md) for detailed steps.
 - Look for `good first issue` labels on GitHub: https://github.com/MrGranday/tasky/issues
 - Example tasks:
-  - Add a `--done` command to mark tasks as complete
-  - Support due dates (e.g., `tasky add "Buy milk" --due "2025-08-30"`)
+  - Add priority tags (e.g., `tasky add "Call mom" --priority high`)
+  - Add a `clear` command
   - Add JSON output for PowerShell
   - Fix typos in documentation
 - No Rust or open-source experience? No problem! We’ll guide you through your first pull request.
@@ -89,4 +94,4 @@ Tasky is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
 Footer
 ------
-© 2025 GitHub, Inc.
+© 2026 GitHub, Inc.

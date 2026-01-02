@@ -104,10 +104,10 @@ Here are examples of beginner-friendly tasks to start with:
 - Fix typos in `README.md` or this file.
 - Add usage examples (e.g., for PowerShell).
 - **Features**:
-- Add a `--done` command to mark tasks as complete (e.g., `tasky done 0`).
-- Support due dates (e.g., `tasky add "Buy milk" --due "2025-08-30"`).
 - Add priority tags (e.g., `tasky add "Call mom" --priority high`).
 - Add a `clear` command to delete all tasks.
+- Add a `sort` command to sort tasks by due date.
+- Add a `filter` command to show only done/undone tasks.
 - **Output Improvements**:
 - Add JSON output for PowerShell (`tasky list --json`).
 - Colorize tasks by priority (e.g., red for high).
