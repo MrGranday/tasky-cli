@@ -1,6 +1,6 @@
 use clap::{Parser, Subcommand};
 use colored::control;
-use tasky_cli::commands::{add_task, done_task, edit_task, list_tasks, remove_task};
+use tasky_cli::commands::{add_task, done_task, edit_task, list_tasks, remove_task, search_tasks};
 use tasky_cli::storage::{load_tasks, tasks_file};
 
 #[derive(Parser)]
@@ -33,6 +33,9 @@ enum Commands {
 
     /// mark task as done
     Done { index: usize },
+
+    // displays task that contain the search term
+    Search {search_text: String}
 }
 
 fn main() {
@@ -57,6 +60,9 @@ fn main() {
         }
         Commands::Edit { index, new_text } => {
             edit_task(&mut tasks, index, new_text, &file);
+        }
+        Commands::Search{search_text } => {
+            search_tasks(&mut &tasks, search_text);
         }
     }
 }

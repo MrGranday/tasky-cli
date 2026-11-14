@@ -1,7 +1,10 @@
+use std::string;
+
 use crate::storage::save_tasks_to_file;
 use crate::task::Task;
 use chrono::DateTime;
 use chrono::offset::Utc;
+use clap::error::ContextValue::Bool;
 use colored::*;
 
 pub fn add_task(tasks: &mut Vec<Task>, text: String, date_string: Option<String>, file: &str) {
@@ -79,3 +82,38 @@ pub fn edit_task(tasks: &mut Vec<Task>, index: usize, new_text: String, file: &s
         println!("Error: Invalid index {index}");
     }
 }
+pub fn search_tasks(tasks: &[Task], search_text: String){
+    let lower_search_text = search_text.to_lowercase();
+    let mut found:bool=false;
+        if tasks.is_empty() {
+        println!("No tasks yet!");
+    } 
+    else {
+    for (i, task) in tasks.iter().enumerate(){
+        let lower_task_text= (task.text).to_lowercase();
+
+        if lower_task_text.contains(&lower_search_text){
+            found=true;
+            let now: DateTime<Utc> = Utc::now();
+            let current_date = now.format("%Y-%m-%d").to_string();
+            let status = if task.done { "[X]" } else { "[ ]" };
+
+            if let Some(date) = &task.date_string {
+                
+                let (task_text, date_text) = if current_date > *date {
+                    (task.text.blue(), date.red())
+                } else {
+                    (task.text.blue(), date.yellow())
+                };
+                println!("{}: {} {} due {}", i, status, task_text, date_text);
+            } else {
+                println!("{}: {} {}", i, status, task.text.blue());
+            }
+        }
+
+    }
+    }    if !found{
+        println!("no tasks found with matching string");
+}
+}
+
